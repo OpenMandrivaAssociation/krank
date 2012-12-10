@@ -2,7 +2,7 @@
 
 Name:		krank
 Version:	0.7
-Release:	%mkrel 1
+Release:	2
 Summary:	Mouse magnet manipulation game with nifty graphics
 Group:		Games/Puzzles
 License:	Public Domain
@@ -20,31 +20,30 @@ stones. You control a short chain of stones with your mouse to achieve that.
 
 %prep
 %setup -q -n %{name}-%{oversion}
-%__rm -r levels/images/.DS_Store
+rm -r levels/images/.DS_Store
 
 %build
-%__rm src/*.pyc
-%__sed -i '/KRANKPATH=/s@=.*@=%{_gamesdatadir}/%{name}@' %{name}
-%__sed -i '/^python/i\
+rm src/*.pyc
+sed -i '/KRANKPATH=/s@=.*@=%{_gamesdatadir}/%{name}@' %{name}
+sed -i '/^python/i\
 export APPDATA="$HOME/.krank"\
-%__mkdir_p "$APPDATA"\
+mkdir -p "$APPDATA"\
 cd $KRANKPATH
 ' %{name}
 for N in 16 32 64 128; do convert %{SOURCE1} -resize ${N}x${N} $N.png; done
 
 %install
-%__rm -rf %{buildroot}
-%__mkdir_p %{buildroot}%{_gamesdatadir}/%{name}
-for D in fonts html levels sounds src; do %__cp -a $D %{buildroot}%{_gamesdatadir}/%{name}/; done
-%__install -D %{name} %{buildroot}%{_gamesbindir}/%{name}
-%__install -D 16.png %{buildroot}%{_miconsdir}/%{name}.png
-%__install -D 32.png %{buildroot}%{_liconsdir}/%{name}.png
-%__install -D 64.png %{buildroot}%{_iconsdir}/hicolor/64x64/apps/%{name}.png
-%__install -D 128.png %{buildroot}%{_iconsdir}/hicolor/128x128/apps/%{name}.png
+mkdir -p %{buildroot}%{_gamesdatadir}/%{name}
+for D in fonts html levels sounds src; do cp -a $D %{buildroot}%{_gamesdatadir}/%{name}/; done
+install -D %{name} %{buildroot}%{_gamesbindir}/%{name}
+install -D 16.png %{buildroot}%{_miconsdir}/%{name}.png
+install -D 32.png %{buildroot}%{_liconsdir}/%{name}.png
+install -D 64.png %{buildroot}%{_iconsdir}/hicolor/64x64/apps/%{name}.png
+install -D 128.png %{buildroot}%{_iconsdir}/hicolor/128x128/apps/%{name}.png
 
 # menu-entry
-%__mkdir_p  %{buildroot}%{_datadir}/applications
-%__cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
+mkdir -p  %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/%{name}.desktop << EOF
 [Desktop Entry]
 Name=Krank
 Comment=Mouse magnet manipulation game
@@ -55,9 +54,6 @@ Type=Application
 Categories=Game;LogicGame;
 EOF
 
-%clean
-%__rm -rf %{buildroot}
-
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG.txt Info.plist README
@@ -67,4 +63,9 @@ EOF
 %{_liconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png
 %{_iconsdir}/hicolor/*/apps/%{name}.png
+
+%changelog
+* Tue Mar 13 2012 Andrey Bondrov <abondrov@mandriva.org> 0.7-1
++ Revision: 784518
+- imported package krank
 
