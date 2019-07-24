@@ -1,8 +1,8 @@
 %define		oversion	07
 
 Name:		krank
-Version:	0.7
-Release:	3
+Version:	07
+Release:	1
 Summary:	Mouse magnet manipulation game with nifty graphics
 Group:		Games/Puzzles
 License:	Public Domain
