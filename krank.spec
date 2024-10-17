@@ -6,7 +6,7 @@ Release:	1
 Summary:	Mouse magnet manipulation game with nifty graphics
 Group:		Games/Puzzles
 License:	Public Domain
-URL:		http://krank.sourceforge.net/
+URL:		https://krank.sourceforge.net/
 Source:		%{name}-%{oversion}.tar.bz2
 Source1:	%{name}.png
 BuildRequires:	imagemagick
